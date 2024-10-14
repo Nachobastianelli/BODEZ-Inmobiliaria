@@ -1,41 +1,47 @@
 import { IconChevronRight } from "@tabler/icons-react";
-const CardItem = () => {
+const CardItem = ({
+  title,
+  location,
+  price,
+  bedrooms,
+  bathrooms,
+  propertyType,
+  status,
+  saleType,
+  imageUrl,
+}) => {
   return (
-    <div className="flex flex-col w-[384px] h-[430px] bg-white rounded-sm">
+    <div className="flex flex-col max-w-[384px] max-h-[430px] sm:min-h-[430px] sm:min-w-[384px] bg-white rounded-sm mx-auto justify-evenly">
       {" "}
-      <div className="relative w-full ">
+      <div className="relative w-full mb-1 ">
         <img
-          src="https://images.adsttc.com/media/images/5d34/e507/284d/d109/5600/0240/large_jpg/_FI.jpg?1563747560"
+          src={imageUrl}
           alt=""
-          className="w-[95%] m-auto mt-2 rounded-md"
+          className="w-[368px] h-[247px] m-auto  mt-0 hover:opacity-80 opacity-100 hover:cursor-pointer transition-all ease-in-out duration-300 "
         />
         <div className="absolute top-4 left-4 bg-green-500 text-white px-2 py-1 text-xs font-semibold rounded">
-          DESTACADO
+          {status}
         </div>
         <div className="absolute top-4 right-4 bg-gray-800 text-white px-2 py-1 text-xs font-semibold rounded">
-          VENTA
+          {saleType}
         </div>
         <div className="absolute bottom-2 left-3  text-white px-2  text-lg font-bold ">
-          U$S 78.000
+          {price}
         </div>
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col mb-3">
         <div className="m-3">
-          <h1 className="font-semibold text-[#212]">
-            Venta - Los Pasos Condominios.
-          </h1>
-          <h2 className="font-normal text-gray-500">
-            Ing. Leon Migilerini 600, Santa Fe, Argentina
-          </h2>
+          <h1 className="font-semibold text-[#212]">{title}.</h1>
+          <h2 className="font-normal text-gray-500 h-[48px]">{location}.</h2>
         </div>
         <div className="flex justify-between mx-3">
           <div className="flex flex-col">
             <h2 className="font-semibold text-[#212]">
               {" "}
-              Dormitorios: 2 Banio: 1
+              Dormitorios: {bedrooms} Banio: {bathrooms}
             </h2>
 
-            <h2 className="font-semibold text-[#212]">Departamento</h2>
+            <h2 className="font-semibold text-[#212]">{propertyType}</h2>
           </div>
           <div className="py-2 px-4 flex gap-1 bg-[#730000] rounded-lg  items-center hover:bg-[#5c0000] hover:cursor-pointer">
             <p className="my-auto text-white font-semibold">Detalles</p>
