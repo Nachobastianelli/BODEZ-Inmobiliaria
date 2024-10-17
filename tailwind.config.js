@@ -7,6 +7,7 @@ export default {
         newMd: "970px",
         newLg: "1520px",
       },
+      backgroundImage: {},
     },
   },
   plugins: [],
