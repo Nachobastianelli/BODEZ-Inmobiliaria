@@ -4,6 +4,7 @@ export default {
   theme: {
     extend: {
       screens: {
+        footer: "850px",
         newMd: "970px",
         newLg: "1520px",
       },
