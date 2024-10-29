@@ -122,6 +122,26 @@ const About = () => {
           <span className="text-[#800020] font-semibold">Bodez</span> y déjanos
           guiarte hacia el inmueble perfecto.
         </motion.p>
+
+        <motion.h2
+          className="mt-10 text-3xl  text-gray-800 font-normal"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.8, duration: 0.8 }}
+        >
+          <span className="font-semibold pb-3">Dueños:</span>
+          <br />
+        </motion.h2>
+
+        <motion.p
+          className="mt-4 text-xl  text-gray-800 font-semibold"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2.0, duration: 0.8 }}
+        >
+          CI Vanesa A. Dezzutto (Mat. 1921) <br /> Dr. Germán Boeri - Abogado
+          (LºXXV-382)
+        </motion.p>
       </div>
     </section>
   );
