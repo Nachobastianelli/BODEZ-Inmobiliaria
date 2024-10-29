@@ -1,14 +1,14 @@
-import CardItem from "./components/cardItem/CardItem";
-import Item from "./components/item/Item";
 import Login from "./components/login/Login";
 import NotFound from "./components/notFound/NotFound";
-import Dashboard from "./dashboard/Dashboard";
-import Header from "./header/Header";
+import Dashboard from "./components/dashboard/Dashboard";
+import Header from "./components/header/Header";
 import {
   createBrowserRouter,
   RouterProvider,
   Navigate,
 } from "react-router-dom";
+import About from "./components/about/About";
+import Footer from "./components/footer/Footer";
 
 function App() {
   const router = createBrowserRouter([
@@ -23,6 +23,17 @@ function App() {
     {
       path: "*",
       element: <NotFound />,
+    },
+    {
+      path: "aboutUs",
+      element: (
+        <div className="overflow-hidden">
+          <Header />
+          <About />
+
+          <Footer />
+        </div>
+      ),
     },
     {
       path: "/",

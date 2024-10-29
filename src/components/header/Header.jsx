@@ -18,8 +18,12 @@ const Header = () => {
         </div>
       </a>
       <div className="flex  gap-8 font-semibold">
-        <a className={styleButton}>Home</a>
-        <a className={styleButton}>About us</a>
+        <a className={styleButton} href="home">
+          Home
+        </a>
+        <a className={styleButton} href="aboutUs">
+          About us
+        </a>
         <a className={styleButton}>Properties</a>
       </div>
     </div>

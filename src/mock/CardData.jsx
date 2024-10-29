@@ -116,6 +116,19 @@ const CardData = [
     imageUrl:
       "https://images.adsttc.com/media/images/5d34/e507/284d/d109/5600/0240/large_jpg/_FI.jpg?1563747560",
   },
+  {
+    id: 10,
+    title: "Alquiler - Residencia Torre Norte",
+    location: "Av. Urquiza 1234, Rosario, Argentina",
+    price: "U$S 120.000",
+    bedrooms: 3,
+    bathrooms: 2,
+    propertyType: "Casa",
+    status: "DESTACADO",
+    saleType: "ALQUILER",
+    imageUrl:
+      "https://static.vecteezy.com/system/resources/previews/022/903/424/non_2x/ai-generative-3d-modern-luxury-real-estate-house-for-sale-and-rent-luxury-property-concept-ai-generated-artwork-photo.jpg",
+  },
 ];
 
 export default CardData;
