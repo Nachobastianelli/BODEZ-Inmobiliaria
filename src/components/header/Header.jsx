@@ -24,7 +24,9 @@ const Header = () => {
         <a className={styleButton} href="aboutUs">
           About us
         </a>
-        <a className={styleButton}>Properties</a>
+        <a className={styleButton} href="login">
+          Login
+        </a>
       </div>
     </div>
   );
