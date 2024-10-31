@@ -9,9 +9,15 @@ import {
 } from "react-router-dom";
 import About from "./components/about/About";
 import Footer from "./components/footer/Footer";
+import CardDetail from "./components/cardDetail/CardDetail";
+import OnArticle from "./components/onArticle/OnArticle";
 
 function App() {
   const router = createBrowserRouter([
+    {
+      path: "/Property/:id",
+      element: <OnArticle />,
+    },
     {
       path: "/home",
       element: <Dashboard />,

@@ -1,20 +1,38 @@
 import { IconChevronRight } from "@tabler/icons-react";
-const CardItem = ({
-  title,
-  location,
-  price,
-  bedrooms,
-  bathrooms,
-  propertyType,
-  status,
-  saleType,
-  imageUrl,
-}) => {
+import { useNavigate } from "react-router-dom";
+
+const CardItem = (props) => {
+  const navigate = useNavigate();
+
+  const clickHandler = () => {
+    navigate(`/Property/${props.id}`, {
+      state: {
+        ...props,
+      },
+    });
+  };
+
+  const {
+    id,
+    title,
+    location,
+    price,
+    bedrooms,
+    bathrooms,
+    propertyType,
+    status,
+    saleType,
+    imageUrl,
+  } = props;
+
   const textBathroom = bathrooms > 1 ? "Baños" : "Baño";
   const textBedroom = bedrooms > 1 ? "Dormitorios" : "Dormitorio";
 
   return (
-    <div className="flex flex-col max-w-[384px] max-h-[430px] sm:min-h-[430px] sm:min-w-[384px] bg-white rounded-sm mx-auto justify-evenly shadow-sm">
+    <div
+      className="flex flex-col max-w-[384px] max-h-[430px] sm:min-h-[430px] sm:min-w-[384px] bg-white rounded-sm mx-auto justify-evenly shadow-sm"
+      onClick={clickHandler}
+    >
       {" "}
       <div className="relative w-full mb-1 ">
         <img

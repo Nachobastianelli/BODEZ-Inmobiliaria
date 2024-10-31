@@ -18,13 +18,13 @@ const Header = () => {
         </div>
       </a>
       <div className="flex  gap-8 font-semibold">
-        <a className={styleButton} href="home">
+        <a className={styleButton} href="/home">
           Home
         </a>
-        <a className={styleButton} href="aboutUs">
+        <a className={styleButton} href="/aboutUs">
           About us
         </a>
-        <a className={styleButton} href="login">
+        <a className={styleButton} href="/login">
           Login
         </a>
       </div>

@@ -4,6 +4,7 @@ const Item = () => {
   const CardDataMapped = CardData.map((item) => (
     <CardItem
       key={item.id}
+      id={item.id}
       title={item.title}
       location={item.location}
       price={item.price}
