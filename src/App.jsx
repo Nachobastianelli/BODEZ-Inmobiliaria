@@ -11,6 +11,7 @@ import About from "./components/about/About";
 import Footer from "./components/footer/Footer";
 import CardDetail from "./components/cardDetail/CardDetail";
 import OnArticle from "./components/onArticle/OnArticle";
+import InfoHome from "./components/infoHome/InfoHome";
 
 function App() {
   const router = createBrowserRouter([
@@ -44,6 +45,10 @@ function App() {
     {
       path: "/",
       element: <Navigate to="/home" replace />,
+    },
+    {
+      path: "/box",
+      element: <InfoHome />,
     },
   ]);
   return (

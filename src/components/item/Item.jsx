@@ -14,6 +14,7 @@ const Item = () => {
       status={item.status}
       saleType={item.saleType}
       imageUrl={item.imageUrl}
+      description={item.description}
     />
   ));
   return (

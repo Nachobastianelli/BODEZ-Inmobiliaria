@@ -4,9 +4,12 @@ export default {
   theme: {
     extend: {
       screens: {
+        xxs: "500px",
         footer: "850px",
         newMd: "970px",
+        xm: "1200px",
         newLg: "1520px",
+        xxl: "2000px",
       },
       backgroundImage: {},
     },

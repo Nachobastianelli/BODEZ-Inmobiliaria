@@ -5,7 +5,7 @@ import Footer from "../footer/Footer";
 
 const OnArticle = () => {
   return (
-    <div className="min-h-screen bg-gray-200  flex flex-col ">
+    <div className="min-h-screen bg-gray-200  flex flex-col overflow-hidden ">
       <Header />
 
       <CardDetail />

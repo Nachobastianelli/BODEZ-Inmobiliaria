@@ -23,6 +23,7 @@ const CardItem = (props) => {
     status,
     saleType,
     imageUrl,
+    description,
   } = props;
 
   const textBathroom = bathrooms > 1 ? "Baños" : "Baño";

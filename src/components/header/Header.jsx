@@ -6,7 +6,7 @@ const Header = () => {
 
   return (
     <div className="flex bg-white w-screen justify-around lg:justify-evenly items-center sm:gap-42 top-0 shadow-lg">
-      <a className="flex " href="#home">
+      <a className="flex " href="/home">
         <img
           src="https://541401084b.clvaw-cdnwnd.com/e227045f27697d1ac9f8a9900bcb2384/200000003-2b9e52b9e7/450/WhatsApp%20Image%202024-01-19%20at%2016.16.58.webp?ph=541401084b"
           alt=""
