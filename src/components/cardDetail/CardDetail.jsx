@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import InfoHome from "../infoHome/InfoHome";
+import Map from "../map/Map";
 
 const CardDetail = () => {
   const locationHook = useLocation();
@@ -17,18 +18,19 @@ const CardDetail = () => {
     description,
     status,
     saleType,
+    propertyLink,
     imageUrl,
   } = locationHook.state || {};
 
   return (
     <>
-      <div className=" mx-auto flex flex-col text-black w-[95%] xm:w-[45%] footer:w-[65%] xxl:w-[40%]">
-        <div className="flex m-5 justify-center flex-col sm:flex-row ">
-          <div className="sm:w-[500px] flex-col">
-            <h1 className="text-2xl font-semibold">{title}</h1>
-            <h2 className="text-gray-400 mt-2">{location}</h2>
+      <div className=" mx-auto flex flex-col text-black w-[95%] xm:w-[65%] newMd:w-[65%] xxl:w-[40%]">
+        <div className="flex my-5 justify-center flex-col sm:flex-row ">
+          <div className="sm:w-[600px] flex-col justify-start">
+            <h1 className="text-3xl font-semibold sm:truncate">{title}</h1>
+            <h2 className="text-gray-400 mt-2 text-lg">{location}</h2>
           </div>
-          <div className="text-2xl font-semibold sm:w-[500px] items-center sm:items-start flex justify-start sm:justify-end mt-2 sm:m-0">
+          <div className="text-3xl font-semibold sm:w-[500px] items-center sm:items-start flex justify-start sm:justify-end mt-2 sm:m-0">
             <h1>{price}</h1>
           </div>
         </div>
@@ -37,12 +39,13 @@ const CardDetail = () => {
             <img
               src={imageUrl}
               alt="FotoDeLaCasa"
-              className="max-w-[900px] w-full  mx-auto object-cover mt-10"
+              className=" w-full  mx-auto object-cover mt-10"
             />
           </picture>
         </div>
         <hr className="border-gray-400 mt-20" />
-        <div className=" mx-auto mt-20">
+        <h1 className="text-2xl font-semibold mt-20">Description</h1>
+        <div className=" mx-auto mt-5">
           <InfoHome
             baths={bathrooms}
             beds={bedrooms}
@@ -57,6 +60,10 @@ const CardDetail = () => {
           />
         </div>
         <hr className="border-gray-400 mt-20" />
+        <div>
+          <h1 className="text-2xl font-semibold mt-20 mb-5 ">Map</h1>
+          <Map link={propertyLink} />
+        </div>
       </div>
     </>
   );

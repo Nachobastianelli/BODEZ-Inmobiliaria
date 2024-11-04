@@ -9,6 +9,8 @@ const CardData = [
     propertyType: "Departamento",
     status: "DESTACADO",
     saleType: "VENTA",
+    propertyLink:
+      "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1184.0770606478527!2d-60.74070071284142!3d-32.92259878142724!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b652c21c78777f%3A0xca0983c8e6c02048!2sOrigami%20Libreria%20Y%20Papeleria!5e0!3m2!1ses!2sar!4v1730568502426!5m2!1ses!2sar",
     imageUrl:
       "https://images.adsttc.com/media/images/5d34/e507/284d/d109/5600/0240/large_jpg/_FI.jpg?1563747560",
     description:
@@ -19,6 +21,8 @@ const CardData = [
     title: "Alquiler - Residencia Torre Norte",
     location: "Av. Urquiza 1234, Rosario, Argentina",
     price: "$120.000",
+    propertyLink:
+      "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1184.0770606478527!2d-60.74070071284142!3d-32.92259878142724!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b652c21c78777f%3A0xca0983c8e6c02048!2sOrigami%20Libreria%20Y%20Papeleria!5e0!3m2!1ses!2sar!4v1730568502426!5m2!1ses!2sar",
     bedrooms: 3,
     bathrooms: 2,
     propertyType: "Casa",
@@ -39,6 +43,8 @@ const CardData = [
     propertyType: "Penthouse",
     status: "NUEVO",
     saleType: "VENTA",
+    propertyLink:
+      "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1184.0770606478527!2d-60.74070071284142!3d-32.92259878142724!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b652c21c78777f%3A0xca0983c8e6c02048!2sOrigami%20Libreria%20Y%20Papeleria!5e0!3m2!1ses!2sar!4v1730568502426!5m2!1ses!2sar",
     imageUrl:
       "https://www.build-review.com/wp-content/uploads/2020/07/luxury-real-estate.jpg",
     description:
@@ -52,6 +58,8 @@ const CardData = [
     bedrooms: 4,
     bathrooms: 3,
     propertyType: "Casa",
+    propertyLink:
+      "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1184.0770606478527!2d-60.74070071284142!3d-32.92259878142724!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b652c21c78777f%3A0xca0983c8e6c02048!2sOrigami%20Libreria%20Y%20Papeleria!5e0!3m2!1ses!2sar!4v1730568502426!5m2!1ses!2sar",
     status: "DESTACADO",
     saleType: "VENTA",
     imageUrl:
@@ -66,6 +74,8 @@ const CardData = [
     price: "$200.000",
     bedrooms: 2,
     bathrooms: 2,
+    propertyLink:
+      "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1184.0770606478527!2d-60.74070071284142!3d-32.92259878142724!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b652c21c78777f%3A0xca0983c8e6c02048!2sOrigami%20Libreria%20Y%20Papeleria!5e0!3m2!1ses!2sar!4v1730568502426!5m2!1ses!2sar",
     propertyType: "Departamento",
     status: "NUEVO",
     saleType: "ALQUILER",
@@ -81,6 +91,8 @@ const CardData = [
     bedrooms: 3,
     bathrooms: 2,
     propertyType: "Casa",
+    propertyLink:
+      "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1184.0770606478527!2d-60.74070071284142!3d-32.92259878142724!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b652c21c78777f%3A0xca0983c8e6c02048!2sOrigami%20Libreria%20Y%20Papeleria!5e0!3m2!1ses!2sar!4v1730568502426!5m2!1ses!2sar",
     status: "DESTACADO",
     saleType: "VENTA",
     imageUrl:
@@ -96,6 +108,8 @@ const CardData = [
     bedrooms: 5,
     bathrooms: 4,
     propertyType: "Casa",
+    propertyLink:
+      "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1184.0770606478527!2d-60.74070071284142!3d-32.92259878142724!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b652c21c78777f%3A0xca0983c8e6c02048!2sOrigami%20Libreria%20Y%20Papeleria!5e0!3m2!1ses!2sar!4v1730568502426!5m2!1ses!2sar",
     status: "DESTACADO",
     saleType: "VENTA",
     imageUrl:
@@ -109,6 +123,8 @@ const CardData = [
     location: "Av. Cabildo 2000, Buenos Aires, Argentina",
     price: "$600.000",
     bedrooms: 3,
+    propertyLink:
+      "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1184.0770606478527!2d-60.74070071284142!3d-32.92259878142724!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b652c21c78777f%3A0xca0983c8e6c02048!2sOrigami%20Libreria%20Y%20Papeleria!5e0!3m2!1ses!2sar!4v1730568502426!5m2!1ses!2sar",
     bathrooms: 2,
     propertyType: "Duplex",
     status: "DESTACADO",
@@ -123,6 +139,8 @@ const CardData = [
     title: "Alquiler - Loft Parque Norte",
     location:
       "Av. Figueroa Alcorta 3300, Buenos Aires, Argentina. Orientacion este",
+    propertyLink:
+      "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1184.0770606478527!2d-60.74070071284142!3d-32.92259878142724!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b652c21c78777f%3A0xca0983c8e6c02048!2sOrigami%20Libreria%20Y%20Papeleria!5e0!3m2!1ses!2sar!4v1730568502426!5m2!1ses!2sar",
     price: "$150.000",
     bedrooms: 1,
     bathrooms: 1,
@@ -137,6 +155,8 @@ const CardData = [
   {
     id: 10,
     title: "Alquiler - Residencia Torre Norte",
+    propertyLink:
+      "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1184.0770606478527!2d-60.74070071284142!3d-32.92259878142724!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b652c21c78777f%3A0xca0983c8e6c02048!2sOrigami%20Libreria%20Y%20Papeleria!5e0!3m2!1ses!2sar!4v1730568502426!5m2!1ses!2sar",
     location: "Av. Urquiza 1234, Rosario, Argentina",
     price: "$120.000",
     bedrooms: 3,

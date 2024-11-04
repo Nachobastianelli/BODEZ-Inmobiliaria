@@ -35,7 +35,7 @@ const InfoHome = ({
             </div>
             <div className="flex  items-center gap-3">
               <IconBedFilled stroke={2} size={30} />
-              <p className="font-semibold truncate ">{beds} Beds</p>
+              <p className="font-semibold truncate ">{beds} Rooms</p>
             </div>
             <div className="flex  items-center gap-3">
               <IconCalendar stroke={2} size={30} />

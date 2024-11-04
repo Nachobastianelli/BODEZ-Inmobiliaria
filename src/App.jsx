@@ -12,6 +12,8 @@ import Footer from "./components/footer/Footer";
 import CardDetail from "./components/cardDetail/CardDetail";
 import OnArticle from "./components/onArticle/OnArticle";
 import InfoHome from "./components/infoHome/InfoHome";
+import Map from "./components/map/Map";
+import AddPropertyForm from "./components/addPropertyForm/AddPropertyForm";
 
 function App() {
   const router = createBrowserRouter([
@@ -48,7 +50,7 @@ function App() {
     },
     {
       path: "/box",
-      element: <InfoHome />,
+      element: <AddPropertyForm />,
     },
   ]);
   return (
