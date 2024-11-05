@@ -50,7 +50,13 @@ function App() {
     },
     {
       path: "/box",
-      element: <AddPropertyForm />,
+      element: (
+        <>
+          <Header />
+          <AddPropertyForm />
+          <Footer />
+        </>
+      ),
     },
   ]);
   return (

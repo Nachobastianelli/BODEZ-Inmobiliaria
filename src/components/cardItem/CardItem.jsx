@@ -24,6 +24,7 @@ const CardItem = (props) => {
     saleType,
     imageUrl,
     description,
+    propertyLink,
   } = props;
 
   const textBathroom = bathrooms > 1 ? "Baños" : "Baño";
@@ -31,7 +32,7 @@ const CardItem = (props) => {
 
   return (
     <div
-      className="flex flex-col max-w-[384px] max-h-[430px] sm:min-h-[430px] sm:min-w-[384px] bg-white rounded-sm mx-auto justify-evenly shadow-sm"
+      className="flex flex-col max-w-[384px] max-h-[430px] sm:min-h-[430px] sm:min-w-[384px] bg-white rounded-sm mx-auto justify-evenly shadow-sm z-40"
       onClick={clickHandler}
     >
       {" "}

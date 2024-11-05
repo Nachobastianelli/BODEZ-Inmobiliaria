@@ -4,7 +4,7 @@ import logo from "../../assets/BodezLogo.png";
 
 const Footer = () => {
   return (
-    <div className="relative bottom-0 py-8 footer:py-5 w-full bg-[#330000] bg-opacity-95 flex flex-col footer:flex-row justify-center items-center gap-8 footer:gap-48 ">
+    <div className="relative bottom-0 py-8 footer:py-5 w-full bg-[#330000] bg-opacity-100 flex flex-col footer:flex-row justify-center items-center gap-8 footer:gap-48 z-50 ">
       <div className="flex flex-col gap-6 items-center">
         <div>
           <img src={logoCrema} alt="Bodez logo" className="size-40 my-0" />

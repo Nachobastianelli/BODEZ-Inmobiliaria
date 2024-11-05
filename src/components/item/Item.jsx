@@ -20,9 +20,8 @@ const Item = () => {
   ));
   return (
     <div className="flex max-w-[95%] sm:max-w-[80%] justify-center mx-auto my-5 mt-3">
-      <div className="grid grid-cols-1 newMd:grid-cols-2  gap-3 justify-center place-items-center">
+      <div className="grid grid-cols-1 newMd:grid-cols-2  gap-10 justify-center place-items-center">
         {" "}
-        {/*newLg:grid-cols-3 Para agregar 3 columnas*/}
         {CardDataMapped.length > 0 ? (
           CardDataMapped
         ) : (

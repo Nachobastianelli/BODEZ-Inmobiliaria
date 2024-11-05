@@ -27,19 +27,21 @@ const InfoHome = ({
           <div className="sm:flex sm:flex-col gap-4 sm:justify-start grid grid-cols-2 xxs:grid-cols-3  mx-auto">
             <div className="flex items-center  gap-3">
               <IconMeterSquare stroke={2} size={30} />
-              <p className="font-semibold ">{m2} sqft</p>
+              <p className="font-semibold ">{m2}</p>
             </div>
             <div className="flex  items-center gap-3">
               <IconBathFilled stroke={2} size={30} />
-              <p className="font-semibold truncate ">{baths} Bath</p>
+              <p className="font-semibold truncate ">{baths} Baños</p>
             </div>
             <div className="flex  items-center gap-3">
               <IconBedFilled stroke={2} size={30} />
-              <p className="font-semibold truncate ">{beds} Rooms</p>
+              <p className="font-semibold truncate ">{beds} Habitaciones</p>
             </div>
             <div className="flex  items-center gap-3">
               <IconCalendar stroke={2} size={30} />
-              <p className="font-semibold truncate ">Built in {createdAt}</p>
+              <p className="font-semibold truncate ">
+                Construida en: {createdAt}
+              </p>
             </div>
             <div className="flex  items-center gap-3">
               <IconHomeFilled stroke={2} size={30} />
@@ -56,8 +58,8 @@ const InfoHome = ({
             </div>
             <div className="flex justify-around">
               <p className="flex justify-center">ID: {id} </p>
-              <p className="flex justify-center">Created at: {createdAt}</p>
-              <p className="flex justify-center">Updated at: {updatedAt}</p>
+              <p className="flex justify-center">Publicada en: {createdAt}</p>
+              <p className="flex justify-center">Actualizada en: {updatedAt}</p>
             </div>
           </div>
         </div>
