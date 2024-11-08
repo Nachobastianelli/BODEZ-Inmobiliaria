@@ -20,3 +20,6 @@ La aplicación facilita la experiencia de navegación de propiedades a través d
 - **Axios**: Peticiones HTTP para interactuar con la API.
 - **Tailwind CSS**: Estilizado de los componentes.
 - **Vite**: Herramienta de desarrollo para mejorar la velocidad y rendimiento del proyecto.
+
+## 🧪 Mockup
+-   <a href="https://bodez.netlify.app">Bodez inmobiliaria</a>
