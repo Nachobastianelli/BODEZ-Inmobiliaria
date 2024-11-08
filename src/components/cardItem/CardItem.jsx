@@ -32,7 +32,7 @@ const CardItem = (props) => {
 
   return (
     <div
-      className="flex flex-col max-w-[384px] max-h-[430px] sm:min-h-[430px] sm:min-w-[384px] bg-white rounded-sm mx-auto justify-evenly shadow-sm z-40"
+      className="flex flex-col max-w-[384px] max-h-[430px] sm:min-h-[430px] sm:min-w-[384px] bg-white rounded-sm mx-auto justify-evenly z-10 shadow-2xl"
       onClick={clickHandler}
     >
       {" "}

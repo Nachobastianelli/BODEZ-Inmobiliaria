@@ -1,14 +1,16 @@
+import { Link } from "react-router-dom";
 import bodezLogo from "../../assets/bodezLogoCrema.png";
 
 const Login = () => {
   return (
     <div className="bg-gray-100 flex justify-center items-center h-screen">
-      <a
-        href="home"
+      <Link
+        to="/home"
         className="absolute top-0 left-0 m-4 py-2 px-4 bg-red-900 text-[#fffdf9] font-semibold rounded-lg shadow-xl hover:scale-105 transition-all ease-in-out duration-300 hover:bg-red-800"
       >
         Home
-      </a>
+      </Link>
+
       <div className="w-1/2 h-screen hidden lg:flex lg:flex-col lg:gap-6 bg-red-950 items-center justify-center">
         <div>
           <img

@@ -21,6 +21,7 @@ function App() {
       path: "/Property/:id",
       element: <OnArticle />,
     },
+
     {
       path: "/home",
       element: <Dashboard />,

@@ -42,8 +42,8 @@ const About = () => {
           >
             <h3 className="text-xl font-semibold mb-2">Nuestro Compromiso</h3>
             <p className="text-sm">
-              Colores: Bordo, negro y blanco, reflejan nuestra elegancia y
-              seriedad en el sector.
+              Ofrecerte un servicio de excelencia, basado en transparencia y la
+              seriedad.
             </p>
           </motion.div>
 
@@ -129,7 +129,7 @@ const About = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 1.8, duration: 0.8 }}
         >
-          <span className="font-semibold pb-3">Dueños:</span>
+          <span className="font-semibold pb-3">Dueño:</span>
           <br />
         </motion.h2>
 
@@ -139,8 +139,7 @@ const About = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 2.0, duration: 0.8 }}
         >
-          CI Vanesa A. Dezzutto (Mat. 1921) <br /> Dr. Germán Boeri - Abogado
-          (LºXXV-382)
+          Dr. Germán Boeri - Abogado (LºXXV-382)
         </motion.p>
       </div>
     </section>
