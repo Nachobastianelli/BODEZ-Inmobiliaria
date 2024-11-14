@@ -7,6 +7,7 @@ import {
   IconBathFilled,
   IconPointFilled,
   IconBedFilled,
+  IconCarSuvFilled,
 } from "@tabler/icons-react";
 
 const InfoHome = ({
@@ -47,9 +48,10 @@ const InfoHome = ({
               <IconHomeFilled stroke={2} size={30} />
               <p className="font-semibold truncate">{type}</p>
             </div>
+
             <div className="flex  items-center gap-3">
-              <IconPointFilled stroke={2} size={30} />
-              <p className="font-semibold truncate">{state}</p>
+              <IconCarSuvFilled stroke={2} size={30} />
+              <p className="font-semibold truncate">Garage: Si</p>
             </div>
           </div>
           <div className="flex flex-col gap-8 w-full max-w-[100%]">
