@@ -14,9 +14,14 @@ import OnArticle from "./components/onArticle/OnArticle";
 import InfoHome from "./components/infoHome/InfoHome";
 import Map from "./components/map/Map";
 import AddPropertyForm from "./components/addPropertyForm/AddPropertyForm";
+import AddUserForm from "./components/addUserForm/AddUserForm";
 
 function App() {
   const router = createBrowserRouter([
+    {
+      path: "/AddUser",
+      element: <AddUserForm />,
+    },
     {
       path: "/Property/:id",
       element: <OnArticle />,

@@ -1,244 +1,344 @@
 import React, { useState } from "react";
-import useApi from "./hooks/useApi";
+import useApi from "../../hooks/useApi";
+import { API_BASE_URL } from "../../api";
 
 const PropertyForm = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    value: "",
-    bathrooms: "",
-    bedrooms: "",
-    rooms: "",
-    m2: "",
-    type: "",
-    status: "",
-    country: "",
-    regionState: "",
-    city: "",
-    address: "",
-    floor: "",
-    numberFloor: "",
-    linkMap: "",
-    builtIn: "",
-    listedAt: "",
-    updatedAt: "",
-    images: [],
-    garage: "",
-  });
-
-  const { data, loading, error, refetch } = useApi(
-    "/property",
-    "POST",
-    formData
+  const [name, setName] = useState("string");
+  const [description, setDescription] = useState("string");
+  const [value, setValue] = useState(1000);
+  const [bedrooms, setBedrooms] = useState(1);
+  const [bathrooms, setBathrooms] = useState(1);
+  const [rooms, setRooms] = useState(2);
+  const [m2, setM2] = useState(1500);
+  const [type, setType] = useState("Casa");
+  const [state, setState] = useState("Nuevo");
+  const [country, setCountry] = useState("Argentina");
+  const [province, setProvince] = useState("Santa fe");
+  const [city, setCity] = useState("Rosario");
+  const [address, setAddress] = useState("Donado 622 Bis");
+  const [floor, setFloor] = useState(0);
+  const [numberFloor, setNumberFloor] = useState(1);
+  const [map, setMap] = useState(
+    "https://www.google.com.ar/maps/place/YPF/@-32.951237,-60.7066817,14z/data=!4m6!3m5!1s0x95b7acd1cc989913:0x60f8dfc626b6d455!8m2!3d-32.9480672!4d-60.7108303!16s%2Fg%2F1hc1m078f?entry=ttu&g_ep=EgoyMDI0MTExMi4wIKXMDSoASAFQAw%3D%3D"
   );
+  const [builtIn, setBuiltIn] = useState(2011);
+  const [images, setImages] = useState(["string"]);
+  const [garage, setGarage] = useState(true);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+  const labelStyle = "block mb-2 font-semibold";
+  const inputStyle =
+    "w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring focus:ring-blue-200";
+
+  const { data, loading, error, createEntity } = useApi("property");
+
+  const changeNameHandler = (e) => {
+    setName(e.target.value);
+  };
+
+  const changeDescriptionHandler = (e) => {
+    setDescription(e.target.value);
+  };
+
+  const changeValueHandler = (e) => {
+    setValue(e.target.value);
+  };
+
+  const changeBedroomsHandler = (e) => {
+    setBedrooms(e.target.value);
+  };
+
+  const changeBathroomsHandler = (e) => {
+    setBathrooms(e.target.value);
+  };
+
+  const changeRoomsHandler = (e) => {
+    setRooms(e.target.value);
+  };
+
+  const changeM2Handler = (e) => {
+    setM2(e.target.value);
+  };
+
+  const changeTypeHandler = (e) => {
+    setType(e.target.value);
+  };
+
+  const changeStateHandler = (e) => {
+    setState(e.target.value);
+  };
+
+  const changeCountryHandler = (e) => {
+    setCountry(e.target.value);
+  };
+
+  const changeProvinceHandler = (e) => {
+    setProvince(e.target.value);
+  };
+
+  const changeCityHandler = (e) => {
+    setCity(e.target.value);
+  };
+
+  const changeAddressHandler = (e) => {
+    setAddress(e.target.value);
+  };
+
+  const changeFloorHandler = (e) => {
+    setFloor(e.target.value);
+  };
+
+  const changeNumberFloorHandler = (e) => {
+    setNumberFloor(e.target.value);
+  };
+
+  const changeMapHandler = (e) => {
+    setMap(e.target.value);
+  };
+
+  const changeBuiltInHandler = (e) => {
+    setBuiltIn(e.target.value);
+  };
+
+  const changeImagesHandler = (e) => {
+    setImages(e.target.value);
+  };
+
+  const changeGarageHandler = (e) => {
+    setGarage(e.target.checked);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await refetch();
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/Property`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name,
+          description: description,
+          value: value,
+          bathrooms: bathrooms,
+          bedrooms: bedrooms,
+          rooms: rooms,
+          m2: m2,
+          type: type,
+          status: state,
+          country: country,
+          regionState: province,
+          city: city,
+          address: address,
+          floor: floor,
+          numberFloors: numberFloor,
+          linkMap: map,
+          garage: garage,
+          builtIn: builtIn,
+          imagePaths: images,
+        }),
+      });
+      if (!response.ok) throw new Error("Error al crear la propiedad");
+      alert("propiedad agregada correctamente");
+    } catch (error) {
+      console.error("Error al crear propiedad:", error);
+    }
   };
 
   return (
-    <div>
-      <h2>Crear Propiedad</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="min-h-screen bg-gray-200">
+      <form
+        onSubmit={handleSubmit}
+        className="mx-auto absolute top-[100px] bottom-0 right-0 left-0  p-6 bg-white shadow-lg rounded-lg m-10 max-h-screen max-w-[80%] overflow-y-auto"
+      >
+        <h2 className="text-2xl font-bold mb-10">Crear Propiedad</h2>
         <div>
-          <label>Nombre:</label>
+          <label className={labelStyle}>Nombre:</label>
           <input
+            className={inputStyle}
             type="text"
             name="name"
-            value={formData.name}
-            onChange={handleChange}
+            value={name}
+            onChange={changeNameHandler}
             required
           />
         </div>
         <div>
-          <label>Descripción:</label>
+          <label className={labelStyle}>Descripción:</label>
           <textarea
+            className={inputStyle}
             name="description"
-            value={formData.description}
-            onChange={handleChange}
+            value={description}
+            onChange={changeDescriptionHandler}
             required
           />
         </div>
         <div>
-          <label>Valor:</label>
+          <label className={labelStyle}>Valor:</label>
           <input
+            className={inputStyle}
             type="number"
+            min={1}
             name="value"
-            value={formData.value}
-            onChange={handleChange}
+            value={value}
+            onChange={changeValueHandler}
             required
           />
         </div>
         <div>
-          <label>Baños:</label>
+          <label className={labelStyle}>Baños:</label>
           <input
+            className={inputStyle}
             type="number"
             name="bathrooms"
-            value={formData.bathrooms}
-            onChange={handleChange}
+            min={0}
+            value={bathrooms}
+            onChange={changeBathroomsHandler}
           />
         </div>
         <div>
-          <label>Habitaciones:</label>
+          <label className={labelStyle}>Habitaciones:</label>
           <input
+            className={inputStyle}
             type="number"
+            min={0}
             name="bedrooms"
-            value={formData.bedrooms}
-            onChange={handleChange}
+            value={bedrooms}
+            onChange={changeBedroomsHandler}
           />
         </div>
         <div>
-          <label>Salas:</label>
+          <label className={labelStyle}>Salas:</label>
           <input
+            className={inputStyle}
             type="number"
+            min={1}
             name="rooms"
-            value={formData.rooms}
-            onChange={handleChange}
+            value={rooms}
+            onChange={changeRoomsHandler}
           />
         </div>
         <div>
-          <label>M2:</label>
+          <label className={labelStyle}>M2:</label>
           <input
+            className={inputStyle}
             type="number"
             name="m2"
-            value={formData.m2}
-            onChange={handleChange}
+            min={0}
+            value={m2}
+            onChange={changeM2Handler}
           />
         </div>
         <div>
-          <label>Tipo:</label>
+          <label className={labelStyle}>Tipo:</label>
           <input
+            className={inputStyle}
             type="text"
             name="type"
-            value={formData.type}
-            onChange={handleChange}
+            value={type}
+            onChange={changeTypeHandler}
           />
         </div>
         <div>
-          <label>Estado:</label>
+          <label className={labelStyle}>Estado:</label>
           <input
+            className={inputStyle}
             type="text"
             name="status"
-            value={formData.status}
-            onChange={handleChange}
+            value={state}
+            onChange={changeStateHandler}
           />
         </div>
         <div>
-          <label>País:</label>
+          <label className={labelStyle}>País:</label>
           <input
+            className={inputStyle}
             type="text"
             name="country"
-            value={formData.country}
-            onChange={handleChange}
+            value={country}
+            onChange={changeCountryHandler}
           />
         </div>
         <div>
-          <label>Estado/Región:</label>
+          <label className={labelStyle}>Estado/Región:</label>
           <input
+            className={inputStyle}
             type="text"
             name="regionState"
-            value={formData.regionState}
-            onChange={handleChange}
+            value={province}
+            onChange={changeProvinceHandler}
           />
         </div>
         <div>
-          <label>Ciudad:</label>
+          <label className={labelStyle}>Ciudad:</label>
           <input
+            className={inputStyle}
             type="text"
             name="city"
-            value={formData.city}
-            onChange={handleChange}
+            value={city}
+            onChange={changeCityHandler}
           />
         </div>
         <div>
-          <label>Dirección:</label>
+          <label className={labelStyle}>Dirección:</label>
           <input
+            className={inputStyle}
             type="text"
             name="address"
-            value={formData.address}
-            onChange={handleChange}
+            value={address}
+            onChange={changeAddressHandler}
           />
         </div>
         <div>
-          <label>Piso:</label>
+          <label className={labelStyle}>Piso:</label>
           <input
-            type="text"
-            name="floor"
-            value={formData.floor}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Número de Piso:</label>
-          <input
+            className={inputStyle}
             type="number"
+            min={0}
+            name="floor"
+            value={floor}
+            onChange={changeFloorHandler}
+          />
+        </div>
+        <div>
+          <label className={labelStyle}>Cantidad de pisos:</label>
+          <input
+            className={inputStyle}
+            type="number"
+            min={1}
             name="numberFloor"
-            value={formData.numberFloor}
-            onChange={handleChange}
+            value={numberFloor}
+            onChange={changeNumberFloorHandler}
           />
         </div>
         <div>
-          <label>Link de Mapa:</label>
+          <label className={labelStyle}>Link de Mapa:</label>
           <input
+            className={inputStyle}
             type="url"
-            name="linkMap"
-            value={formData.linkMap}
-            onChange={handleChange}
+            name="Map"
+            value={map}
+            onChange={changeMapHandler}
           />
         </div>
-        <div>
-          <label>Año de Construcción:</label>
+        <div className="flex items-center m-auto space-x-2 my-auto">
+          <label className={`${labelStyle}`}>Garaje:</label>
           <input
-            type="text"
-            name="builtIn"
-            value={formData.builtIn}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Fecha de Listado:</label>
-          <input
-            type="date"
-            name="listedAt"
-            value={formData.listedAt}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Fecha de Actualización:</label>
-          <input
-            type="date"
-            name="updatedAt"
-            value={formData.updatedAt}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Garaje:</label>
-          <input
-            type="text"
+            className="items-center rounded border-gray-300 focus:ring-blue-500  mb-1"
+            type="checkbox"
             name="garage"
-            value={formData.garage}
-            onChange={handleChange}
+            checked={garage}
+            onChange={changeGarageHandler}
           />
         </div>
-        <button type="submit" disabled={loading}>
+        <button
+          type="submit"
+          disabled={loading}
+          className="flex ml-auto m-5 px-4 py-2 bg-red-900 font-semibold text-lg text-white rounded-lg border-2  focus:border-red-500 hover:bg-[#6b2121] cursor-pointer active:translate-y-1 transition-all duration-300 ease-in-out"
+        >
           {loading ? "Enviando..." : "Crear Propiedad"}
         </button>
       </form>
-
-      {/* Mensajes de éxito o error */}
-      {data && <p>Propiedad creada con éxito.</p>}
-      {error && <p style={{ color: "red" }}>{error.message}</p>}
     </div>
   );
 };

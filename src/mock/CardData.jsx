@@ -1,20 +1,29 @@
 const CardData = [
   {
     id: 1,
-    title: "Venta - Los Pasos Condominios",
-    location: "Ing. Leon Migilerini 600, Santa Fe, Argentina",
-    price: "$78.000",
-    bedrooms: 2,
-    bathrooms: 1,
-    propertyType: "Departamento",
-    status: "DESTACADO",
-    saleType: "VENTA",
-    propertyLink:
-      "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1184.0770606478527!2d-60.74070071284142!3d-32.92259878142724!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b652c21c78777f%3A0xca0983c8e6c02048!2sOrigami%20Libreria%20Y%20Papeleria!5e0!3m2!1ses!2sar!4v1730568502426!5m2!1ses!2sar",
-    imageUrl:
-      "https://images.adsttc.com/media/images/5d34/e507/284d/d109/5600/0240/large_jpg/_FI.jpg?1563747560",
-    description:
-      "Acogedor departamento de dos dormitorios ubicado en una zona tranquila de Santa Fe. Con acabados modernos y amplios ventanales, este espacio ofrece una vista panorámica de la ciudad. Perfecto para parejas o familias pequeñas, cuenta con una sala de estar abierta que conecta con una cocina funcional y equipada. Además, su proximidad a parques y servicios lo convierten en una excelente opción para quienes buscan comodidad y tranquilidad.",
+    name: "Casa de juan",
+    description: "Casa linda. Muy linda.",
+    value: 10000,
+    bathrooms: 5,
+    bedrooms: 5,
+    rooms: 10,
+    m2: 8000,
+    type: "Casa",
+    status: "Nuevo",
+    country: "Argentina",
+    regionState: "Santa fe",
+    city: "Rosario",
+    address: "Sarratea 639 bis",
+    floor: 8,
+    numberFloors: 1,
+    linkMap:
+      "https://www.google.com.ar/maps/place/Terminal+de+omnibus/@-32.9415978,-60.6854528,14z/data=!4m6!3m5!1s0x95b7abd1544155c9:0x11fe5f52f605b137!8m2!3d-32.9392691!4d-60.6710878!16s%2Fg%2F11scrzwbm4?entry=ttu&g_ep=EgoyMDI0MTExMi4wIKXMDSoASAFQAw%3D%3D",
+    builtIn: 2011,
+    garage: true,
+    listedAt: "2024-11-14T19:39:48.3260574",
+    lastUpdatedAt: "2024-11-14T19:39:48.3260576",
+    isAvailable: true,
+    imagePaths: ["string"],
   },
   {
     id: 2,
