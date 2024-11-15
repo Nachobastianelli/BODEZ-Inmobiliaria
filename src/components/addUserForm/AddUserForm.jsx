@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { API_BASE_URL } from "../../api";
 
 const AddUserForm = () => {
-  const [email, setEmail] = useState("user@gmail.com");
-  const [password, setPassword] = useState("string");
-  const [role, setRole] = useState("Admin");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const changeEmailHandler = (e) => {
     setEmail(e.target.value);
@@ -14,17 +13,13 @@ const AddUserForm = () => {
     setPassword(e.target.value);
   };
 
-  const changeRoleHandler = (e) => {
-    setRole(e.target.value);
-  };
-
   const submitHandler = async (e) => {
     e.preventDefault();
 
     const newUser = {
       email: email,
       password: password,
-      role: role,
+      role: "Client",
     };
 
     try {
@@ -68,18 +63,6 @@ const AddUserForm = () => {
             placeholder="*********"
             onChange={changePasswordHandler}
             value={password}
-          />
-        </div>
-        <div className="flex flex-col m-2">
-          <label htmlFor="" className="text-lg">
-            Role:
-          </label>
-          <input
-            type="text"
-            placeholder="Admin"
-            className="text-black"
-            onChange={changeRoleHandler}
-            value={role}
           />
         </div>
 

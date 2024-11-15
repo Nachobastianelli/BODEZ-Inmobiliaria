@@ -18,9 +18,29 @@ const InfoHome = ({
   type,
   createdAt,
   description,
+  builtIn,
   id,
   updatedAt,
+  garage,
 }) => {
+  const garageText = garage == true ? "Si" : "No";
+
+  function timeAgo(dateString) {
+    const date = new Date(dateString);
+    const now = new Date();
+    const secondsAgo = Math.floor((now - date) / 1000);
+
+    const rtf = new Intl.RelativeTimeFormat("es", { numeric: "auto" });
+
+    if (secondsAgo < 60) return rtf.format(-secondsAgo, "seconds");
+    const minutesAgo = Math.floor(secondsAgo / 60);
+    if (minutesAgo < 60) return rtf.format(-minutesAgo, "minutes");
+    const hoursAgo = Math.floor(minutesAgo / 60);
+    if (hoursAgo < 24) return rtf.format(-hoursAgo, "hours");
+    const daysAgo = Math.floor(hoursAgo / 24);
+    return rtf.format(-daysAgo, "days");
+  }
+
   return (
     <>
       <div className=" bg-transparent text-black max-w-[916px]">
@@ -41,7 +61,7 @@ const InfoHome = ({
             <div className="flex  items-center gap-3">
               <IconCalendar stroke={2} size={30} />
               <p className="font-semibold truncate ">
-                Construida en: {createdAt}
+                Construida en: {builtIn}
               </p>
             </div>
             <div className="flex  items-center gap-3">
@@ -51,17 +71,25 @@ const InfoHome = ({
 
             <div className="flex  items-center gap-3">
               <IconCarSuvFilled stroke={2} size={30} />
-              <p className="font-semibold truncate">Garage: Si</p>
+              <p className="font-semibold truncate">Garage: {garageText}</p>
             </div>
           </div>
           <div className="flex flex-col gap-8 w-full max-w-[100%]">
             <div className="flex items-start  leading-10 ">
               <p>{description}</p>
             </div>
-            <div className="flex justify-around">
-              <p className="flex justify-center">ID: {id} </p>
-              <p className="flex justify-center">Publicada en: {createdAt}</p>
-              <p className="flex justify-center">Actualizada en: {updatedAt}</p>
+            <div className="flex justify-around gap-3">
+              <p className="flex justify-center gap-2">
+                <span className="font-semibold">ID: </span> {id}{" "}
+              </p>
+              <p className="flex justify-center gap-2">
+                <span className="font-semibold">Publicada: </span>{" "}
+                {timeAgo(createdAt)}
+              </p>
+              <p className="flex justify-center gap-2">
+                <span className="font-semibold">Actualizada: </span>{" "}
+                {timeAgo(updatedAt)}
+              </p>
             </div>
           </div>
         </div>

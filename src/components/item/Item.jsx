@@ -1,21 +1,35 @@
+import useApi from "../../hooks/useApi";
 import CardItem from "../cardItem/CardItem";
-import CardData from "../../mock/CardData";
+
 const Item = () => {
-  const CardDataMapped = CardData.map((item) => (
+  const { data, loading, error } = useApi("Property");
+
+  const CardDataMapped = data.map((item) => (
     <CardItem
       key={item.id}
       id={item.id}
-      title={item.title}
-      location={item.location}
-      price={item.price}
+      name={item.name}
+      description={item.description}
+      value={item.value}
       bedrooms={item.bedrooms}
       bathrooms={item.bathrooms}
-      propertyType={item.propertyType}
+      rooms={item.rooms}
+      m2={item.m2}
+      country={item.country}
+      regionState={item.regionState}
+      city={item.city}
+      address={item.address}
+      type={item.type}
       status={item.status}
-      saleType={item.saleType}
-      imageUrl={item.imageUrl}
-      description={item.description}
-      propertyLink={item.propertyLink}
+      imagePaths={item.imagePaths}
+      linkMap={item.linkMap}
+      builtIn={item.builtIn}
+      garage={item.garage}
+      listedAt={item.listedAt}
+      lastUpdatedAt={item.lastUpdatedAt}
+      isAvailable={item.isAvailable}
+      floor={item.floor}
+      numberFloor={item.numberFloors}
     />
   ));
   return (

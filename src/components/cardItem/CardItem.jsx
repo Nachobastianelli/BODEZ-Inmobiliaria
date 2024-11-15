@@ -14,17 +14,28 @@ const CardItem = (props) => {
 
   const {
     id,
-    title,
-    location,
-    price,
+    name,
+    description,
+    value,
     bedrooms,
     bathrooms,
-    propertyType,
+    rooms,
     status,
-    saleType,
-    imageUrl,
-    description,
-    propertyLink,
+    type,
+    m2,
+    country,
+    regionState,
+    city,
+    address,
+    builtIn,
+    listedAt,
+    lastUpdatedAt,
+    garage,
+    floor,
+    numberFloor,
+    isAvailable,
+    imagePaths,
+    linkMap,
   } = props;
 
   const textBathroom = bathrooms > 1 ? "Baños" : "Baño";
@@ -38,7 +49,11 @@ const CardItem = (props) => {
       {" "}
       <div className="relative w-full mb-1 ">
         <img
-          src={imageUrl}
+          src={
+            imagePaths[0] != "string"
+              ? imagePaths[0]
+              : "https://images.milenio.com/cm_IBp9n8hYdIiXP7JwfMN3jN9I=/942x532/uploads/media/2020/03/20/comprar-casa-campo-posibilidades-debes.jpg"
+          }
           alt=""
           className="w-[368px] h-[247px] m-auto  mt-0 hover:opacity-80 opacity-100 hover:cursor-pointer transition-all ease-in-out duration-300 "
         />
@@ -46,16 +61,18 @@ const CardItem = (props) => {
           {status}
         </div>
         <div className="absolute top-4 right-4 bg-gray-800 text-white px-2 py-1 text-xs font-semibold rounded">
-          {saleType}
+          {type}
         </div>
         <div className="absolute bottom-2 left-3  text-white px-2  text-lg font-bold ">
-          {price}
+          ${value}
         </div>
       </div>
       <div className="flex flex-col mb-3">
         <div className="m-3">
-          <h1 className="font-semibold text-[#212]">{title}.</h1>
-          <h2 className="font-normal text-gray-500 h-[48px]">{location}.</h2>
+          <h1 className="font-semibold text-[#212]">{name}.</h1>
+          <h2 className="font-normal text-gray-500 h-[48px]">
+            {`${address}, ${city}, ${regionState}, ${country}`}.
+          </h2>
         </div>
         <div className="flex justify-between mx-3">
           <div className="flex flex-col">
@@ -64,7 +81,7 @@ const CardItem = (props) => {
               {textBedroom}: {bedrooms} {textBathroom}: {bathrooms}
             </h2>
 
-            <h2 className="font-semibold text-[#212]">{propertyType}</h2>
+            <h2 className="font-semibold text-[#212]">{type}</h2>
           </div>
           <div className="py-2 px-4 flex gap-1 bg-[#730000] rounded-lg  items-center hover:bg-[#5c0000] hover:cursor-pointer transition-all ease-in-out duration-300 active:bg-[#420000] active:translate-y-[1px]">
             <p className="my-auto text-white font-semibold">Detalles</p>
