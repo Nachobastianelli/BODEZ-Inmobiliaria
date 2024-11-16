@@ -6,20 +6,27 @@ import Map from "../map/Map";
 import { IconTrash, IconEdit } from "@tabler/icons-react";
 import DeleteProperty from "../deleteProperty/DeleteProperty";
 import { API_BASE_URL } from "../../api";
+import useToast from "../../hooks/useToast";
 
 const CardDetail = () => {
   const locationHook = useLocation();
   const navigate = useNavigate();
+  const { showToast } = useToast();
 
   const [isVisibleDelete, setIsVisibleDelete] = useState(false);
   const [isVisibleUpdate, setIsVisibleUpdate] = useState(false);
 
-  const deleteProperty = () => {
+  const deleteProperty = async () => {
     navigate("/home");
-    alert("la propiedad fue eliminada con exito");
-    return fetch(`${API_BASE_URL}/property/${id}`, {
-      method: "DELETE",
-    });
+    showToast("la propiedad fue eliminada con exito", true);
+    try {
+      await fetch(`${API_BASE_URL}/property/${id}`, {
+        method: "DELETE",
+      });
+    } catch (err) {
+      showToast(err.message, false);
+    }
+    return;
   };
 
   const changeUpdateVisibility = () => {

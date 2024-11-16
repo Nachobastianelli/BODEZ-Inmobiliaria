@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import useApi from "../../hooks/useApi";
 import { API_BASE_URL } from "../../api";
+import useToast from "../../hooks/useToast";
 
 const PropertyForm = () => {
+  const { showToast } = useToast();
   const [name, setName] = useState("string");
   const [description, setDescription] = useState("string");
   const [value, setValue] = useState(1000);
@@ -139,9 +141,10 @@ const PropertyForm = () => {
         }),
       });
       if (!response.ok) throw new Error("Error al crear la propiedad");
-      alert("propiedad agregada correctamente");
+      showToast("propiedad agregada correctamente", true);
     } catch (error) {
       console.error("Error al crear propiedad:", error);
+      showToast("Error al crear propiedad:", false);
     }
   };
 
