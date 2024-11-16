@@ -1,12 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import InfoHome from "../infoHome/InfoHome";
 import Map from "../map/Map";
+import { IconTrash, IconEdit } from "@tabler/icons-react";
+import DeleteProperty from "../deleteProperty/DeleteProperty";
+import { API_BASE_URL } from "../../api";
 
 const CardDetail = () => {
   const locationHook = useLocation();
   const navigate = useNavigate();
+
+  const [isVisibleDelete, setIsVisibleDelete] = useState(false);
+  const [isVisibleUpdate, setIsVisibleUpdate] = useState(false);
+
+  const deleteProperty = () => {
+    navigate("/home");
+    alert("la propiedad fue eliminada con exito");
+    return fetch(`${API_BASE_URL}/property/${id}`, {
+      method: "DELETE",
+    });
+  };
+
+  const changeUpdateVisibility = () => {
+    setIsVisibleUpdate(!isVisibleUpdate);
+  };
+
+  const changeDeleteVisibility = () => {
+    setIsVisibleDelete(!isVisibleDelete);
+  };
 
   const {
     id,
@@ -51,6 +73,24 @@ const CardDetail = () => {
           </div>
         </div>
         <div>
+          <button
+            onClick={changeDeleteVisibility}
+            className=" px-2 py-2 size-12 bg-red-900 fixed left-0 top-[47%] m-auto ml-2 font-semibold text-lg text-white rounded-lg hover:scale-110 duration-300 transition-all ease-in-out active:ring-2 ring-red-400 hover:bg-[#5f1e1e] active:bg-[#451616]"
+          >
+            <p className="mx-auto ml-1">
+              <IconTrash stroke={2} />
+            </p>
+          </button>
+          <button
+            onClick={changeUpdateVisibility}
+            className=" px-2 py-2 size-12 bg-red-900 fixed left-0 top-[53%] m-auto ml-2 font-semibold text-lg text-white rounded-lg hover:scale-110 duration-300 transition-all ease-in-out active:ring-2 ring-red-400 hover:bg-[#5f1e1e] active:bg-[#451616]"
+          >
+            <p className="mx-auto ml-1">
+              <IconEdit stroke={2} />
+            </p>
+          </button>
+        </div>
+        <div>
           <picture>
             <img
               src={
@@ -91,6 +131,13 @@ const CardDetail = () => {
           <Map link={linkMap} />
           <div className="mb-20 sm:mb-0"></div>
         </div>
+        {isVisibleDelete && (
+          <DeleteProperty
+            isVisible={isVisibleDelete}
+            onClose={changeDeleteVisibility}
+            DeleteProperty={deleteProperty}
+          />
+        )}
       </div>
     </>
   );
