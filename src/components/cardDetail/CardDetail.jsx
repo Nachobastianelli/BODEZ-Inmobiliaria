@@ -7,6 +7,7 @@ import { IconTrash, IconEdit } from "@tabler/icons-react";
 import DeleteProperty from "../deleteProperty/DeleteProperty";
 import { API_BASE_URL } from "../../api";
 import useToast from "../../hooks/useToast";
+import UpdateProperty from "../updateProperty/UpdateProperty";
 
 const CardDetail = () => {
   const locationHook = useLocation();
@@ -18,11 +19,24 @@ const CardDetail = () => {
 
   const deleteProperty = async () => {
     navigate("/home");
-    showToast("la propiedad fue eliminada con exito", true);
     try {
       await fetch(`${API_BASE_URL}/property/${id}`, {
         method: "DELETE",
       });
+      showToast("la propiedad fue eliminada con exito", true);
+    } catch (err) {
+      showToast(err.message, false);
+    }
+    return;
+  };
+
+  const updateProperty = async (updatedEntity) => {
+    try {
+      await fetch(`${API_BASE_URL}/property/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(updatedEntity),
+      });
+      showToast("la propiedad fue actualizada con exito", true);
     } catch (err) {
       showToast(err.message, false);
     }
@@ -143,6 +157,13 @@ const CardDetail = () => {
             isVisible={isVisibleDelete}
             onClose={changeDeleteVisibility}
             DeleteProperty={deleteProperty}
+          />
+        )}
+        {isVisibleUpdate && (
+          <UpdateProperty
+            isVisible={isVisibleUpdate}
+            onClose={changeUpdateVisibility}
+            updateProperty={updateProperty}
           />
         )}
       </div>

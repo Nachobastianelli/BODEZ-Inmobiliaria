@@ -3,7 +3,6 @@ import { IconTrash } from "@tabler/icons-react";
 import useToast from "../../hooks/useToast";
 
 const DeleteProperty = ({ isVisible, onClose, DeleteProperty }) => {
-  const { showToast } = useToast();
   if (!isVisible) {
     return null;
   }
