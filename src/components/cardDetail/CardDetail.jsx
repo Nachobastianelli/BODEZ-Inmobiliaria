@@ -21,6 +21,9 @@ const CardDetail = () => {
     navigate("/home");
     try {
       await fetch(`${API_BASE_URL}/property/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
         method: "DELETE",
       });
       showToast("la propiedad fue eliminada con exito", true);
@@ -31,10 +34,14 @@ const CardDetail = () => {
   };
 
   const updateProperty = async (updatedEntity) => {
+    const cleanedEntity = JSON.parse(JSON.stringify(updatedEntity));
     try {
       await fetch(`${API_BASE_URL}/property/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
         method: "PUT",
-        body: JSON.stringify(updatedEntity),
+        body: JSON.stringify(cleanedEntity),
       });
       showToast("la propiedad fue actualizada con exito", true);
     } catch (err) {
@@ -76,6 +83,8 @@ const CardDetail = () => {
     linkMap,
     imagePaths,
   } = locationHook.state || {};
+
+  const props = locationHook.state || {};
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -164,6 +173,7 @@ const CardDetail = () => {
             isVisible={isVisibleUpdate}
             onClose={changeUpdateVisibility}
             updateProperty={updateProperty}
+            props={props}
           />
         )}
       </div>
