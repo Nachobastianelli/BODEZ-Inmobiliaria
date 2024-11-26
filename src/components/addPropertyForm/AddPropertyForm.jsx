@@ -5,33 +5,32 @@ import useToast from "../../hooks/useToast";
 
 const PropertyForm = () => {
   const { showToast } = useToast();
-  const [name, setName] = useState("string");
-  const [description, setDescription] = useState("string");
-  const [value, setValue] = useState(1000);
-  const [bedrooms, setBedrooms] = useState(1);
-  const [bathrooms, setBathrooms] = useState(1);
-  const [rooms, setRooms] = useState(2);
-  const [m2, setM2] = useState(1500);
-  const [type, setType] = useState("Casa");
-  const [state, setState] = useState("Nuevo");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [value, setValue] = useState();
+  const [bedrooms, setBedrooms] = useState();
+  const [bathrooms, setBathrooms] = useState();
+  const [rooms, setRooms] = useState();
+  const [m2, setM2] = useState();
+  const [type, setType] = useState("");
+  const [state, setState] = useState("");
   const [country, setCountry] = useState("Argentina");
-  const [province, setProvince] = useState("Santa fe");
+  const [province, setProvince] = useState("Santa Fe");
   const [city, setCity] = useState("Rosario");
-  const [address, setAddress] = useState("Donado 622 Bis");
-  const [floor, setFloor] = useState(0);
-  const [numberFloor, setNumberFloor] = useState(1);
-  const [map, setMap] = useState(
-    "https://www.google.com.ar/maps/place/YPF/@-32.951237,-60.7066817,14z/data=!4m6!3m5!1s0x95b7acd1cc989913:0x60f8dfc626b6d455!8m2!3d-32.9480672!4d-60.7108303!16s%2Fg%2F1hc1m078f?entry=ttu&g_ep=EgoyMDI0MTExMi4wIKXMDSoASAFQAw%3D%3D"
-  );
-  const [builtIn, setBuiltIn] = useState(2011);
-  const [images, setImages] = useState(["string"]);
-  const [garage, setGarage] = useState(true);
+  const [address, setAddress] = useState("");
+  const [floor, setFloor] = useState();
+  const [numberFloor, setNumberFloor] = useState();
+  const [map, setMap] = useState("");
+  const [builtIn, setBuiltIn] = useState();
+  const [images, setImages] = useState([]);
+  const [garage, setGarage] = useState(false);
 
   const labelStyle = "block mb-2 font-semibold";
   const inputStyle =
     "w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring focus:ring-blue-200";
 
-  const { data, loading, error, createEntity } = useApi("property");
+  const { data, loading, error, createEntity, uploadFiles } =
+    useApi("property");
 
   const changeNameHandler = (e) => {
     setName(e.target.value);
@@ -101,8 +100,9 @@ const PropertyForm = () => {
     setBuiltIn(e.target.value);
   };
 
-  const changeImagesHandler = (e) => {
-    setImages(e.target.value);
+  const imagesHandler = (e) => {
+    console.log(Array.from(e.target.files));
+    setImages(Array.from(e.target.files));
   };
 
   const changeGarageHandler = (e) => {
@@ -113,32 +113,38 @@ const PropertyForm = () => {
     e.preventDefault();
 
     try {
+      const imagePaths = await uploadFiles(images);
+      console.log(imagePaths);
+      const newProperty = {
+        name,
+        description,
+        value: parseFloat(value, 10),
+        bathrooms: parseInt(bathrooms, 10),
+        bedrooms: parseInt(bedrooms, 10),
+        rooms: parseInt(rooms, 10),
+        m2: parseFloat(m2, 10),
+        type,
+        status: state,
+        country,
+        regionState: province,
+        city,
+        address,
+        floor: parseInt(floor, 10),
+        numberFloors: parseInt(numberFloor, 10),
+        linkMap: map,
+        garage,
+        builtIn: parseInt(builtIn, 10),
+        imagePaths: imagePaths,
+      };
+
+      console.log(newProperty);
+
       const response = await fetch(`${API_BASE_URL}/Property`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          name: name,
-          description: description,
-          value: value,
-          bathrooms: bathrooms,
-          bedrooms: bedrooms,
-          rooms: rooms,
-          m2: m2,
-          type: type,
-          status: state,
-          country: country,
-          regionState: province,
-          city: city,
-          address: address,
-          floor: floor,
-          numberFloors: numberFloor,
-          linkMap: map,
-          garage: garage,
-          builtIn: builtIn,
-          imagePaths: images,
-        }),
+        body: JSON.stringify(newProperty),
       });
       if (!response.ok) throw new Error("Error al crear la propiedad");
       showToast("propiedad agregada correctamente", true);
@@ -162,6 +168,7 @@ const PropertyForm = () => {
             type="text"
             name="name"
             value={name}
+            placeholder="Condominio palos verdes"
             onChange={changeNameHandler}
             required
           />
@@ -170,6 +177,7 @@ const PropertyForm = () => {
           <label className={labelStyle}>Descripción:</label>
           <textarea
             className={inputStyle}
+            placeholder="Descripcion..."
             name="description"
             value={description}
             onChange={changeDescriptionHandler}
@@ -180,6 +188,7 @@ const PropertyForm = () => {
           <label className={labelStyle}>Valor:</label>
           <input
             className={inputStyle}
+            placeholder="10000"
             type="number"
             min={1}
             name="value"
@@ -192,71 +201,91 @@ const PropertyForm = () => {
           <label className={labelStyle}>Baños:</label>
           <input
             className={inputStyle}
+            placeholder="2"
             type="number"
             name="bathrooms"
             min={0}
+            max={10}
             value={bathrooms}
             onChange={changeBathroomsHandler}
+            required
           />
         </div>
         <div>
           <label className={labelStyle}>Habitaciones:</label>
           <input
             className={inputStyle}
+            placeholder="3"
             type="number"
             min={0}
+            max={10}
             name="bedrooms"
             value={bedrooms}
             onChange={changeBedroomsHandler}
+            required
           />
         </div>
         <div>
           <label className={labelStyle}>Salas:</label>
           <input
             className={inputStyle}
+            placeholder="5"
             type="number"
             min={1}
+            max={20}
             name="rooms"
             value={rooms}
             onChange={changeRoomsHandler}
+            required
           />
         </div>
         <div>
           <label className={labelStyle}>M2:</label>
           <input
             className={inputStyle}
+            placeholder="1255"
             type="number"
             name="m2"
             min={0}
+            max={10000}
             value={m2}
             onChange={changeM2Handler}
+            required
           />
         </div>
         <div>
           <label className={labelStyle}>Tipo:</label>
-          <input
+          <select
             className={inputStyle}
-            type="text"
             name="type"
             value={type}
             onChange={changeTypeHandler}
-          />
+          >
+            <option value="" disabled></option>
+            <option value="Casa">Casa</option>
+            <option value="Departamento">Dpto</option>
+            <option value="Condominio">Condominio</option>
+          </select>
         </div>
         <div>
           <label className={labelStyle}>Estado:</label>
-          <input
+          <select
             className={inputStyle}
-            type="text"
             name="status"
             value={state}
             onChange={changeStateHandler}
-          />
+          >
+            <option value="" disabled></option>
+            <option value="Venta">Venta</option>
+            <option value="Alquiler">Alquiler</option>
+          </select>
         </div>
         <div>
           <label className={labelStyle}>País:</label>
           <input
             className={inputStyle}
             type="text"
+            required
             name="country"
             value={country}
             onChange={changeCountryHandler}
@@ -267,6 +296,7 @@ const PropertyForm = () => {
           <input
             className={inputStyle}
             type="text"
+            required
             name="regionState"
             value={province}
             onChange={changeProvinceHandler}
@@ -277,6 +307,7 @@ const PropertyForm = () => {
           <input
             className={inputStyle}
             type="text"
+            required
             name="city"
             value={city}
             onChange={changeCityHandler}
@@ -288,6 +319,8 @@ const PropertyForm = () => {
             className={inputStyle}
             type="text"
             name="address"
+            placeholder="Donado 643 Bis"
+            required
             value={address}
             onChange={changeAddressHandler}
           />
@@ -298,6 +331,8 @@ const PropertyForm = () => {
             className={inputStyle}
             type="number"
             min={0}
+            required
+            placeholder="3 - Piso({3})"
             name="floor"
             value={floor}
             onChange={changeFloorHandler}
@@ -309,19 +344,50 @@ const PropertyForm = () => {
             className={inputStyle}
             type="number"
             min={1}
+            placeholder="2: Casa de 2 pisos"
+            required
             name="numberFloor"
             value={numberFloor}
             onChange={changeNumberFloorHandler}
           />
         </div>
         <div>
+          <label className={labelStyle}>Constuida en:</label>
+          <input
+            className={inputStyle}
+            type="number"
+            min={1900}
+            placeholder="2011"
+            required
+            name="builtIn"
+            value={builtIn}
+            onChange={changeBuiltInHandler}
+          />
+        </div>
+        <div>
           <label className={labelStyle}>Link de Mapa:</label>
           <input
             className={inputStyle}
-            type="url"
+            type="text"
+            placeholder="https://google.maps.api/ASDasdahy3e2df44sbjdASD"
             name="Map"
             value={map}
             onChange={changeMapHandler}
+          />
+        </div>
+        <div>
+          <label
+            htmlFor="images"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            Images:
+          </label>
+          <input
+            id="images"
+            type="file"
+            multiple
+            onChange={imagesHandler}
+            className="w-full p-2 border border-gray-300 rounded focus:ring focus:ring-blue-200"
           />
         </div>
         <div className="flex items-center m-auto space-x-2 my-auto">

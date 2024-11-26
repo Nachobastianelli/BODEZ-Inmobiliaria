@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { API_BASE_URL } from "../api";
+import { API_BASE_URL, API_BASE } from "../api";
 
 const useApi = (initialEntity) => {
   const [entity, setEntity] = useState(initialEntity);
@@ -82,6 +82,42 @@ const useApi = (initialEntity) => {
     [entity, fetchData]
   );
 
+  const uploadFiles = async (files) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const formData = new FormData();
+
+      Array.from(files).forEach((file, index) => {
+        formData.append("files", file);
+        console.log(`File ${index + 1}: ${file.name}`);
+      });
+
+      formData.forEach((value, key) => {
+        console.log(`Key: ${key}, Value: ${value}`);
+      });
+
+      const response = await fetch(`${API_BASE_URL}/property/upload`, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to upload files");
+      }
+
+      const fetchedData = await response.json();
+      console.log("Fetched Data:", fetchedData);
+      return fetchedData;
+    } catch (err) {
+      console.error("Upload Error:", err);
+      setError(err);
+      return [];
+    } finally {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
     fetchData();
   }, [fetchData]);
@@ -94,6 +130,7 @@ const useApi = (initialEntity) => {
     createEntity,
     updateEntity,
     deleteEntity,
+    uploadFiles,
   };
 };
 

@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useToast from "../../hooks/useToast";
 import { nav } from "framer-motion/client";
+import useApi from "../../hooks/useApi";
+import { API_BASE_URL } from "../../api";
 
 const UpdateProperty = ({ isVisible, onClose, updateProperty, props = {} }) => {
+  const { data, loading, error, uploadFiles } = useApi("property");
+
   const { showToast } = useToast();
   const navigate = useNavigate();
   const labelStyle = "block mb-2 font-semibold text-white";
@@ -38,6 +42,7 @@ const UpdateProperty = ({ isVisible, onClose, updateProperty, props = {} }) => {
   const [statusInput, setStatus] = useState(status);
   const [numberFloorsInput, setNumberFloors] = useState(numberFloor);
   const [imagePathsInput, setImagePaths] = useState(imagePaths);
+  const [deletePhotos, setDeletePhotos] = useState(false);
 
   const changeNameHandler = (e) => {
     setName(e.target.value);
@@ -78,34 +83,60 @@ const UpdateProperty = ({ isVisible, onClose, updateProperty, props = {} }) => {
   const changeNumberFloorHandler = (e) => {
     setNumberFloors(e.target.value);
   };
-  const changeImagesHandler = (e) => {
-    setImagePaths(e.target.value);
+
+  const imagesHandler = (e) => {
+    console.log(Array.from(e.target.files));
+    setImagePaths(Array.from(e.target.files));
   };
 
   const changeGarageHandler = (e) => {
     setGarage(e.target.checked);
   };
 
+  const changeDeletePhotosHandler = (e) => {
+    setDeletePhotos(e.target.checked);
+  };
+
   const submitHandler = async (e) => {
     e.preventDefault();
+
+    if (deletePhotos) {
+      try {
+        console.log("ENTRE");
+        const response = fetch(`${API_BASE_URL}/property/DeletePhotos/${id}`, {
+          method: "PUT",
+        });
+        if (!response.ok) {
+          console.log("Internal error");
+        }
+      } catch (err) {
+        console.log(`ERROR: ${err.message}`);
+      }
+    } else {
+      console.log("NO entre");
+    }
+
+    const imagePaths = await uploadFiles(imagePathsInput);
+
+    console.log(imagePaths);
+
     const updatedProperty = {
       name: nameInput,
       description: descriptionInput,
-      value: valueInput,
-      bathrooms: bathroomsInput,
-      bedrooms: bedroomsInput,
-      rooms: roomsInput,
-      m2: parseInt(m2Input),
+      value: parseFloat(valueInput, 10),
+      bathrooms: parseInt(bathroomsInput, 10),
+      bedrooms: parseInt(bedroomsInput, 10),
+      rooms: parseInt(roomsInput, 10),
+      m2: parseFloat(m2Input),
       garage: garageInput,
       type: typeInput,
       status: statusInput,
-      numberFloors: numberFloorsInput,
+      numberFloors: parseInt(numberFloorsInput, 10),
       imagePaths: imagePaths,
     };
 
     try {
       await updateProperty(updatedProperty);
-      console.log(updatedProperty);
       showToast("Se actualizo la propiedad", true);
       onClose();
       navigate("/home");
@@ -190,8 +221,10 @@ const UpdateProperty = ({ isVisible, onClose, updateProperty, props = {} }) => {
                 type="number"
                 name="bathrooms"
                 min={0}
+                max={10}
                 value={bathroomsInput}
                 onChange={changeBathroomsHandler}
+                required
               />
             </div>
             <div>
@@ -200,6 +233,8 @@ const UpdateProperty = ({ isVisible, onClose, updateProperty, props = {} }) => {
                 className={inputStyle}
                 type="number"
                 min={0}
+                max={10}
+                required
                 name="bedrooms"
                 value={bedroomsInput}
                 onChange={changeBedroomsHandler}
@@ -212,6 +247,8 @@ const UpdateProperty = ({ isVisible, onClose, updateProperty, props = {} }) => {
                 type="number"
                 min={1}
                 name="rooms"
+                max={20}
+                required
                 value={roomsInput}
                 onChange={changeRoomsHandler}
               />
@@ -221,8 +258,10 @@ const UpdateProperty = ({ isVisible, onClose, updateProperty, props = {} }) => {
               <input
                 className={inputStyle}
                 type="number"
+                required
                 name="m2"
                 min={0}
+                max={10000}
                 value={m2Input}
                 onChange={changeM2Handler}
               />
@@ -235,27 +274,62 @@ const UpdateProperty = ({ isVisible, onClose, updateProperty, props = {} }) => {
                 name="floors"
                 min={0}
                 value={numberFloorsInput}
+                required
                 onChange={changeNumberFloorHandler}
               />
             </div>
             <div>
               <label className={labelStyle}>Tipo:</label>
-              <input
+              <select
                 className={inputStyle}
-                type="text"
                 name="type"
-                value={typeInput}
+                value={type}
                 onChange={changeTypeHandler}
-              />
+              >
+                <option value="" disabled></option>
+                <option value="Casa">Casa</option>
+                <option value="Departamento">Dpto</option>
+                <option value="Condominio">Condominio</option>
+              </select>
             </div>
             <div>
               <label className={labelStyle}>Estado:</label>
-              <input
+              <select
                 className={inputStyle}
-                type="text"
                 name="status"
-                value={statusInput}
+                value={status}
                 onChange={changeStatusHandler}
+              >
+                <option value="" disabled></option>
+                <option value="Venta">Venta</option>
+                <option value="Alquiler">Alquiler</option>
+              </select>
+            </div>
+            <div>
+              <label
+                htmlFor="images"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                Images:
+              </label>
+              <input
+                id="images"
+                type="file"
+                multiple
+                onChange={imagesHandler}
+                className="w-full p-2 border border-gray-300 rounded focus:ring focus:ring-blue-200"
+              />
+            </div>
+            <div className="flex items-center m-auto justify-center mb-10 space-x-2 my-auto">
+              <label className={`${labelStyle}`}>
+                Borrar fotos anteriores:
+              </label>
+              <input
+                className="items-center rounded border-gray-300 focus:ring-blue-500  mb-1"
+                type="checkbox"
+                name="DeletePhotos"
+                checked={deletePhotos}
+                onChange={changeDeletePhotosHandler}
               />
             </div>
             <div className="flex items-center m-auto justify-center mb-10 space-x-2 my-auto">

@@ -1,5 +1,6 @@
 import { IconChevronRight } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
+import { API_BASE } from "../../api";
 
 const CardItem = (props) => {
   const navigate = useNavigate();
@@ -49,13 +50,9 @@ const CardItem = (props) => {
       {" "}
       <div className="relative w-full mb-1 ">
         <img
-          src={
-            imagePaths[0] != "string"
-              ? imagePaths[0]
-              : "https://images.milenio.com/cm_IBp9n8hYdIiXP7JwfMN3jN9I=/942x532/uploads/media/2020/03/20/comprar-casa-campo-posibilidades-debes.jpg"
-          }
+          src={`${API_BASE}${imagePaths[0]}`}
           alt=""
-          className="w-[368px] h-[247px] m-auto  mt-0 hover:opacity-80 opacity-100 hover:cursor-pointer transition-all ease-in-out duration-300 "
+          className="w-[368px] h-[247px] m-auto object-cover  mt-0 hover:opacity-80 opacity-100 hover:cursor-pointer transition-all ease-in-out duration-300 "
         />
         <div className="absolute top-4 left-4 bg-green-500 text-white px-2 py-1 text-xs font-semibold rounded">
           {status}

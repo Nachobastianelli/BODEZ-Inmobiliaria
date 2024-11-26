@@ -1,18 +1,75 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import InfoHome from "../infoHome/InfoHome";
 import Map from "../map/Map";
 import { IconTrash, IconEdit } from "@tabler/icons-react";
 import DeleteProperty from "../deleteProperty/DeleteProperty";
-import { API_BASE_URL } from "../../api";
+import { API_BASE_URL, API_BASE } from "../../api";
 import useToast from "../../hooks/useToast";
 import UpdateProperty from "../updateProperty/UpdateProperty";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
+
+const cleanEntity = (entity) => {
+  const cleaned = {};
+  for (const key in entity) {
+    if (Object.prototype.hasOwnProperty.call(entity, key)) {
+      const value = entity[key];
+      if (typeof value !== "object" || value === null) {
+        cleaned[key] = value;
+      } else if (Array.isArray(value)) {
+        cleaned[key] = [...value];
+      } else if (
+        typeof value === "object" &&
+        !value.constructor.name.includes("HTML")
+      ) {
+        cleaned[key] = { ...value };
+      }
+    }
+  }
+  return cleaned;
+};
+
+const CustomPrevArrow = ({ onClick }) => {
+  return (
+    <button
+      onClick={onClick}
+      className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-black text-white rounded-full w-10 h-10 flex items-center justify-center shadow-md hover:bg-gray-700"
+    >
+      <IconChevronLeft size={24} />
+    </button>
+  );
+};
+
+const CustomNextArrow = ({ onClick }) => {
+  return (
+    <button
+      onClick={onClick}
+      className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-black text-white rounded-full w-10 h-10 flex items-center justify-center shadow-md hover:bg-gray-700"
+    >
+      <IconChevronRight size={24} />
+    </button>
+  );
+};
 
 const CardDetail = () => {
   const locationHook = useLocation();
   const navigate = useNavigate();
   const { showToast } = useToast();
+
+  const mainSliderRef = useRef(null);
+  const thumbnailSliderRef = useRef(null);
+
+  const [mainSlider, setMainSlider] = useState(null);
+  const [thumbnailSlider, setThumbnailSlider] = useState(null);
+
+  useEffect(() => {
+    setMainSlider(mainSliderRef.current);
+    setThumbnailSlider(thumbnailSliderRef.current);
+  }, []);
 
   const [isVisibleDelete, setIsVisibleDelete] = useState(false);
   const [isVisibleUpdate, setIsVisibleUpdate] = useState(false);
@@ -34,7 +91,7 @@ const CardDetail = () => {
   };
 
   const updateProperty = async (updatedEntity) => {
-    const cleanedEntity = JSON.parse(JSON.stringify(updatedEntity));
+    const cleanedEntity = cleanEntity(updatedEntity);
     try {
       await fetch(`${API_BASE_URL}/property/${id}`, {
         headers: {
@@ -48,6 +105,29 @@ const CardDetail = () => {
       showToast(err.message, false);
     }
     return;
+  };
+
+  const mainSliderSettings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    prevArrow: <CustomPrevArrow />,
+    nextArrow: <CustomNextArrow />,
+    asNavFor: thumbnailSliderRef.current || null,
+  };
+
+  const thumbnailSliderSettings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    centerMode: true,
+    focusOnSelect: true,
+    asNavFor: mainSliderRef.current || null,
   };
 
   const changeUpdateVisibility = () => {
@@ -86,6 +166,9 @@ const CardDetail = () => {
 
   const props = locationHook.state || {};
 
+  const priceDotted = (price) => {
+    return price.toLocaleString("es-ES"); // 'es-ES' usa puntos como separador de miles
+  };
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -99,7 +182,7 @@ const CardDetail = () => {
             <h2 className="text-gray-400 mt-2 text-lg">{`${address}, ${city}, ${regionState}, ${country}`}</h2>
           </div>
           <div className="text-3xl font-semibold sm:w-[500px] items-center sm:items-start flex justify-start sm:justify-end mt-2 sm:m-0">
-            <h1>{`$${value}`}</h1>
+            <h1>{`$${priceDotted(value)}`}</h1>
           </div>
         </div>
         <div>
@@ -120,18 +203,34 @@ const CardDetail = () => {
             </p>
           </button>
         </div>
-        <div>
-          <picture>
-            <img
-              src={
-                imagePaths[0] != "string"
-                  ? imagePaths[0]
-                  : "https://images.milenio.com/cm_IBp9n8hYdIiXP7JwfMN3jN9I=/942x532/uploads/media/2020/03/20/comprar-casa-campo-posibilidades-debes.jpg"
-              }
-              alt="FotoDeLaCasa"
-              className=" w-full  mx-auto object-cover mt-10 max-w-[1103px]"
-            />
-          </picture>
+        <div className="max-w-[1103px] mx-auto ">
+          <Slider {...mainSliderSettings} ref={mainSliderRef}>
+            {imagePaths.map((image, index) => (
+              <div key={index}>
+                <picture>
+                  <img
+                    src={`${API_BASE}${image}`}
+                    alt={`Property image ${index + 1}`}
+                    className=" w-full  mx-auto object-cover mt-10 max-w-[1103px] max-h-[800px]  h-[800px]"
+                  />
+                </picture>
+              </div>
+            ))}
+          </Slider>
+          {/* Slider de miniaturas */}
+          <div className="">
+            <Slider {...thumbnailSliderSettings} ref={thumbnailSliderRef}>
+              {imagePaths.map((image, index) => (
+                <div key={index} className="max-w-[1103px] w-full">
+                  <img
+                    src={`${API_BASE}${image}`}
+                    alt={`Thumbnail ${index + 1}`}
+                    className="w-72 h-36 object-cover  mx-auto cursor-pointer"
+                  />
+                </div>
+              ))}
+            </Slider>
+          </div>
         </div>
         <hr className="border-gray-400 mt-20" />
         <h1 className="flex text-2xl font-semibold mt-20 xxs:justify-start mb-20 xxs:mb-5 justify-center animate-shake">
